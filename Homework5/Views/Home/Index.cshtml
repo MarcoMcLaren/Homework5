@@ -1,0 +1,37 @@
+﻿@model Homework5.Models.BooksVM
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Books</h2>
+<div class="tab-content">
+    <div class="tab-pane container active p-0" id="home">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark text-white">
+                <tr>
+                    <th>Number</th>
+                    <th>Name</th>
+                    <th>Author</th>
+                    <th>Type</th>
+                    <th>Page Count</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var book in Model.Books)
+                {
+                    <tr>
+                        <td>@book.bookId</td>
+                        <td>@book.name</td>
+                        <td>@Model.Authors.Where(x => x.authorId == book.authorId).Select(p => p.name).FirstOrDefault().ToString()</td>
+                        <td>@Model.Types.Where(x => x.typeId == book.typeId).Select(p => p.name).FirstOrDefault().ToString()</td>
+                        <td>@book.pagecount</td>
+                        <td>@book.point</td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
