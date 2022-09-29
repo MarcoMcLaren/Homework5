@@ -1,12 +1,37 @@
 ﻿@model Homework5.Models.BooksVM
+@*@model IEnumerable<Homework5.Models.BooksVM>*@
 @{
     ViewBag.Title = "Index";
 }
-
+<br>
 <h2>Books</h2>
+<br>
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+    <div class="form-group">
+        <div class="row">
+            <div class="col-sm-4">
+                <input class="form-control mr-sm-2" name="searchtext" type="search" placeholder="Search Book Name" aria-label="Search">
+            </div>
+            <div class="col-sm-2">
+
+            </div>
+            <div class="col-sm-2">
+                hello
+            </div>
+            <div class="col-sm-2">
+                <input type="submit" class="btn btn-success" value="Search" style="width: 150px;" />
+            </div>
+            <div class="col-sm-2">
+                <input type="submit" class="btn btn-danger" value="Clear" style="width: 150px;" />
+            </div>
+        </div>
+        <br />
+    </div>
+}
 <div class="tab-content">
     <div class="tab-pane container active p-0" id="home">
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped" id="HomeTable">
             <thead class="thead-dark text-white">
                 <tr>
                     <th>Number</th>
@@ -15,20 +40,39 @@
                     <th>Type</th>
                     <th>Page Count</th>
                     <th>Points</th>
+                    <th>Status</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var book in Model.Books)
+                @foreach (var item in Model.Books)
                 {
                     <tr>
-                        <td>@book.bookId</td>
-                        <td>@book.name</td>
-                        <td>@Model.Authors.Where(x => x.authorId == book.authorId).Select(p => p.name).FirstOrDefault().ToString()</td>
-                        <td>@Model.Types.Where(x => x.typeId == book.typeId).Select(p => p.name).FirstOrDefault().ToString()</td>
-                        <td>@book.pagecount</td>
-                        <td>@book.point</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.bookId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.authorId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.typeId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.pagecount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.point)
+                        </td>
+                        <td>
+                            UNCERTAIN
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Index", "Home")" class="btn btn-primary" title="search" style="width: 100px;">View</a>
+                        </td>
                     </tr>
-
                 }
             </tbody>
         </table>
